@@ -37,7 +37,7 @@ addOne(-5) //=> -4
 function addOne(n) {
   // let sum = n + 1;
   // return sum;
-  return n+1;
+  return n + 1;
 }
 
 
@@ -61,7 +61,14 @@ addTwoNumbers('Hello', 5) //=> NaN
 -----------------------------------------------------------------*/
 // Your solution for 02-addTwoNumbers here:
 
-// function addTwoNumbers() {}
+function addTwoNumbers(num1, num2) {
+  if (Number.isInteger(num1) && Number.isInteger(num2)) {
+    return num1 + num2;
+  }
+  else {
+    return NaN;
+  }
+}
 
 
 
@@ -84,10 +91,19 @@ sumNumbers([]) //=> 0
 -----------------------------------------------------------------*/
 // Your solution for 03-sumNumbers here:
 
-
-
-
-
+function sumNumbers(array) {
+  let sum = 0;
+  for (let i = 0; i < array.length; i++) {
+    sum += array[i]
+  }
+  // console.log(sum);
+  if (array === []) {
+    return 0;
+  }
+  else {
+    return sum;
+  }
+}
 /*-----------------------------------------------------------------
 Challenge: 04-addList
 
@@ -107,9 +123,13 @@ add(7,-12) //=> -5
 -----------------------------------------------------------------*/
 // Your solution for 04-addList here:
 
-
-
-
+function addList() {
+  let sum = 0;
+  for (let i = 0; i < arguments.length; i++) {
+    sum += arguments[i];
+  }
+  return sum;
+}
 
 /*-----------------------------------------------------------------
 Challenge: 05-computeRemainder
@@ -131,6 +151,15 @@ computeRemainder(10.5, 3) //=> 1.5
 -----------------------------------------------------------------*/
 // Your solution for 05-computeRemainder:
 
+function computeRemainder(n, d) {
+  if (d === 0) return Infinity;
+  return n % d;
+  // let arb = n
+  // while (arb > d) {
+  //   arb -= d;
+  // }
+  // return arb;
+}
 
 
 
@@ -154,7 +183,14 @@ range(5,2) //=> "First argument must be less than second"
 -----------------------------------------------------------------*/
 // Your solution for 06-range here:
 
-
+function range(a, b) {
+  let arr = [];
+  if (a > b) return "First argument must be less than second";
+  for (let i = 0; i < (b - a); i++) {
+    arr.push(a + i);
+  }
+  return arr;
+}
 
 
 
@@ -165,7 +201,7 @@ Difficulty: Basic
 
 Prompt:
 
-- Write a function called reverseUpcaseString that accepts a single string argument, then returns the string with its characters in reverse orderand converts all characters to uppercase.
+- Write a function called reverseUpcaseString that accepts a single string argument, then returns the string with its characters in reverse order and converts all characters to uppercase.
 
 Examples:
 
@@ -173,7 +209,9 @@ reverseUpcaseString("SEI Rocks!"); //=> "!SKCOR IES"
 -----------------------------------------------------------------*/
 // Your solution for 07-reverseUpcaseString here:
 
-
+function reverseUpcaseString(word) {
+  return word.split('').reverse().join('').toUpperCase();
+}
 
 
 
@@ -194,7 +232,14 @@ removeEnds('a'); //=> "" (empty string)
 -----------------------------------------------------------------*/
 // Your solution for 08-removeEnds here:
 
-
+function removeEnds(str) {
+  if (str.length < 3) return '';
+  // return str.split('').shift().pop().join('');
+  let arr = str.split('');
+  arr.pop();
+  arr.shift();
+  return arr.join('');
+}
 
 
 
@@ -217,7 +262,17 @@ charCount('Today is fantastic!') //=> { T: 1, o: 1, d: 1, a: 3, y: 1, ' ': 2, i:
 -----------------------------------------------------------------*/
 // Your solution for 09-charCount here:
 
-
+function charCount(word) {
+  let obj = {};
+  word.split('').forEach(e => {
+    if (!obj[e]) {
+      obj[e] = 1;
+    } else {
+        obj[e] += 1;
+    }
+  })
+  return obj;
+}
 
 
 
@@ -243,6 +298,18 @@ formatWithPadding(1234, '*', 3); //=> "1234"
 -----------------------------------------------------------------*/
 // Your solution for 10-formatWithPadding here:
 
+function formatWithPadding(numToFormat, padString, padLength) {
+  if (`${numToFormat}`.length >= padLength) {
+    return `${numToFormat}`;
+  }
+  
+  let arr = `${numToFormat}`.split();
+  for (let i = 0; i < padLength - `${numToFormat}`.length; i++) {
+    arr.unshift(padString);
+  }
+  
+  return arr.join('');
+}
 
 
 
@@ -268,7 +335,9 @@ isPalindrome(''); //=> true
 -----------------------------------------------------------------*/
 // Your solution for 11-isPalindrome here:
 
-
+function isPalindrome(word) {
+  return word.toUpperCase().replace(/\s/g, '') === word.toUpperCase().replace(/\s/g, '').split('').reverse().join('')
+}
 
 
 
@@ -369,7 +438,7 @@ mergeObjects({a: 1, b: 2, c: 3}, {d: 4}, {b: 22, d: 44});  //=> {a: 1, b: 22, c:
 /*-----------------------------------------------------------------
 Challenge: 16-findHighestPriced
 
-Difficulty:  Intermediate  
+Difficulty:  Intermediate
 
 Prompt:
 
@@ -388,7 +457,7 @@ findHighestPriced([
   { sku: 'c3', price: 50 },
   { sku: 'd4', price: 10 }
 ]);
-//=> { sku: 'c3', price: 50 } 
+//=> { sku: 'c3', price: 50 }
 
 findHighestPriced([
   { sku: 'a1', price: 25 },
@@ -493,7 +562,7 @@ Hint:
 Examples:
 
 flatten( [1, [2, 3]] );
-//=> [1, 2, 3]  (a new array) 
+//=> [1, 2, 3]  (a new array)
 
 flatten( [1, [2, [3, [4]]], 1, 'a', ['b', 'c']] );
 //=> [1, 2, 3, 4, 1, 'a', 'b', 'c']
@@ -517,7 +586,7 @@ Prompt:
 Examples:
 
 isPrime(2) //=> true
-isPrime(3) //=> true 
+isPrime(3) //=> true
 isPrime(4) //=> false
 isPrime(29) //=> true
 isPrime(200) //=> false
